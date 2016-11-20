@@ -1,13 +1,13 @@
-const webpack = require('webpack');
-const path = require('pacth');
+var webpack = require('webpack');
+var path = require('path');
 
-const PATHS = {
+var PATHS = {
 	dist: path.join(__dirname, 'dist'),
 	src: path.join(__dirname, 'src'),
 	css: path.join(__dirname, 'dist/css')
 };
 
-const config = {
+module.exports = {
 	entry: {
 		app: PATHS.src
 	},
@@ -33,5 +33,3 @@ const config = {
 		stats: 'errors-only'
 	}
 };
-
-module.exports = config;
