@@ -44,7 +44,6 @@ module.exports = {
 		]
 	},
 	resolve: {
-		root: PATHS.src,
 		extensions: ['', '.js', '.jsx']
 	},
 	devServer: {
