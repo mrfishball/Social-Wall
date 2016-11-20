@@ -1,35 +1,59 @@
-var webpack = require('webpack');
-var path = require('path');
+const path = require('path');
 
-var PATHS = {
-	dist: path.join(__dirname, 'dist'),
-	src: path.join(__dirname, 'src'),
-	css: path.join(__dirname, 'dist/css')
+const PATHS = {
+	dist: path.resolve(__dirname, 'dist'),
+	src: path.resolve(__dirname, 'src'),
+	css: path.resolve(__dirname, 'dist/css')
 };
 
 module.exports = {
-	entry: {
-		app: PATHS.src
-	},
+	entry: [
+		'webpack-dev-server/client?http://0.0.0.0:8080',
+		'webpack/hot/only-dev-server',
+		PATHS.src
+		],
 	output: {
 		path: PATHS.dist,
 		filename: 'bundle.js'
 	},
 	module: {
+		preLoaders: [
+			{
+				test: /\.jsx?$/,
+				include: PATHS.src,
+				loader: 'eslint-loader'
+			}
+		],
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules/,
-				loader: 'babel'
+				include: PATHS.src,
+				loaders: ['react-hot', 'jsx?harmony']
+			},
+			{
+				test: /\.jsx?$/,
+				include: PATHS.src,
+				loader: 'babel-loader'
+			},
+			{
+				test: /\.css?$/,
+				include: PATHS.src,
+				loaders: ['style', 'css']
 			}
+			
 		]
 	},
 	resolve: {
+		root: PATHS.src,
 		extensions: ['', '.js', '.jsx']
 	},
 	devServer: {
 		contentBase: PATHS.dist,
 		inline: true,
-		stats: 'errors-only'
+		stats: 'errors-only',
+		hot: true
+	},
+	eslint: {
+		configFile: './.eslintrc'
 	}
 };

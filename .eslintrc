@@ -1,0 +1,9 @@
+{
+	parse: "babel-eslint",
+	"plugins": [
+		"react"
+	],
+	"rules": {
+
+	}
+}
