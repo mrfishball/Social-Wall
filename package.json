@@ -1,0 +1,19 @@
+{
+  "name": "social-wall",
+  "version": "1.0.0",
+  "description": "A social wall web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mrfishball/Social-Wall.git"
+  },
+  "author": "Steven Tuet Piu Kwok",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrfishball/Social-Wall/issues"
+  },
+  "homepage": "https://github.com/mrfishball/Social-Wall#readme"
+}
