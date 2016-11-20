@@ -1,13 +1,13 @@
-var webpack = require('webpack');
-var path = require('pacth');
+const webpack = require('webpack');
+const path = require('pacth');
 
-var PATHS = {
-	dist: path.resolve(__dirname, 'dist'),
-	src: path.resolve(__dirname, 'src'),
-	css: path.resolve(__dirname, 'dist/css')
+const PATHS = {
+	dist: path.join(__dirname, 'dist'),
+	src: path.join(__dirname, 'src'),
+	css: path.join(__dirname, 'dist/css')
 };
 
-var config = {
+const config = {
 	entry: {
 		app: PATHS.src
 	},
