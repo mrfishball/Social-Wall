@@ -76,7 +76,7 @@ var Post = React.createClass({
 
   render: function() {
     return (
-        <div className="block">
+        <div className="item">
           <PostImage src={this.props.image} alt={this.props.title} viewport={this.props.viewport} showImage={this.state.showImage}
             updateImagePosition={this.updateImagePosition} />
           <div className="content">
@@ -128,7 +128,9 @@ var PostList = React.createClass({
 
     return (
       <div className="wrapper">
-        {itemViews}
+      	<div className="masonry">
+        	{itemViews}
+        </div>
       </div>
     );
   }
