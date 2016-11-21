@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 // import spinner from './spin.svg';
 require('./App.css');
 
-// Product list item image
-var ProductImage = React.createClass({
+// Post list item image
+var PostImage = React.createClass({
   getDefaultProps: function() {
   	var load = 'Loading...'
     return {
@@ -32,8 +32,8 @@ var ProductImage = React.createClass({
   }
 });
 
-// Product list item
-var Product = React.createClass({
+// Post list item
+var Post = React.createClass({
   getInitialState: function() {
     return {
       showImage: false
@@ -77,7 +77,7 @@ var Product = React.createClass({
   render: function() {
     return (
         <div className="block">
-          <ProductImage src={this.props.image} alt={this.props.title} viewport={this.props.viewport} showImage={this.state.showImage}
+          <PostImage src={this.props.image} alt={this.props.title} viewport={this.props.viewport} showImage={this.state.showImage}
             updateImagePosition={this.updateImagePosition} />
           <div className="content">
             <h2>{this.props.title}</h2>
@@ -87,8 +87,8 @@ var Product = React.createClass({
   }
 });
 
-// Product list
-var ProductList = React.createClass({
+// Post list
+var PostList = React.createClass({
   getInitialState: function() {
     return {
       viewport: {
@@ -123,7 +123,7 @@ var ProductList = React.createClass({
     var self = this;
 
     var itemViews = this.props.items.map(function(item) {
-      return <Product title={item.title} image={item.image} viewport={self.state.viewport} />
+      return <Post title={item.title} image={item.image} viewport={self.state.viewport} />
     });
 
     return (
@@ -134,4 +134,4 @@ var ProductList = React.createClass({
   }
 });
 
-export default ProductList;
+export default PostList;
