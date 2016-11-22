@@ -32,7 +32,7 @@ var PostImage = React.createClass({
   }
 });
 
-// Post list item
+// Create post item
 var Post = React.createClass({
   getInitialState: function() {
     return {
@@ -77,31 +77,117 @@ var Post = React.createClass({
   render: function() {
     return (
         <div className="item">
-          <PostImage src={this.props.image} alt={this.props.title} viewport={this.props.viewport} showImage={this.state.showImage}
+          <PostImage src={this.props.image} alt={this.props.text} viewport={this.props.viewport} showImage={this.state.showImage}
             updateImagePosition={this.updateImagePosition} />
           <div className="content">
-            <h2>{this.props.title}</h2>
+            <p>{this.props.text}</p>
+            <div className="post-footer">
+            	<a className="avatar" href="" />
+            	<div className="post-info">
+            		<a className="username" href="">{this.props.user}</a>
+            		<p className="timestamp">{this.props.timestamp}</p>
+            	</div>
+            </div>
           </div>
         </div>
     );
   }
 });
 
-// Post list
-var PostList = React.createClass({
+// Renders all the posts
+var Posts = React.createClass({
   getInitialState: function() {
     return {
       viewport: {
         top: 0,
         height: 0
-      }
+      },
+      posts: [
+      	{
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 hours ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "7 minutes ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "1 hours ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "5 hours ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 days ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 days ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 days ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 days ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 days ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 days ago"
+	    },
+	    {
+	      	user: "SamanthaFaiers",
+	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
+	      	avatar: "http://placehold.it/150x150",
+	      	image: "http://placehold.it/600x350",
+	      	time: "3 days ago"
+	    }
+      ]
     };
   },
 
   componentDidMount: function() {
     window.addEventListener('scroll', this.updateViewport, false);
     window.addEventListener('resize', this.updateViewport, false);
-    this.updateViewport();
+    self.updateViewport();
   },
 
   componentWillUnmount: function() {
@@ -122,18 +208,22 @@ var PostList = React.createClass({
   render: function() {
     var self = this;
 
-    var itemViews = this.props.items.map(function(item) {
-      return <Post title={item.title} image={item.image} viewport={self.state.viewport} />
+    var posts = this.state.posts.map(function(post) {
+      return <Post user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
     });
 
+    if(!posts.length){
+    	posts = <p className='loading'>Loading...</p>;
+    }
+
     return (
-      <div className="wrapper">
-      	<div className="masonry">
-        	{itemViews}
-        </div>
-      </div>
+    	<div className="wrapper">
+		  	<div className="masonry">
+		    	{posts}
+		    </div>
+	    </div>
     );
   }
 });
 
-export default PostList;
+export default Posts;
