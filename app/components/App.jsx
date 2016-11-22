@@ -1,14 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-// import spinner from './spin.svg';
 require('./App.css');
 
 var Header = React.createClass({
 	render: function() {
 		return (
 			<h3 className="title">{this.props.siteName}</h3>
-		)
+		);
+	}
+});
+
+var Options = React.createClass({
+	localHandleClick: function() {
+		this.props.localHandleClick();
+	},
+	render: function() {
+		return (
+			<li onClick={this.localHandleClick} className="load">See More</li>
+		);
 	}
 });
 
@@ -54,7 +64,6 @@ var PostImage = React.createClass({
 	      <div className="loading">{this.props.loader}</div>
 	    );
     }
-    
   }
 });
 
@@ -62,7 +71,8 @@ var PostImage = React.createClass({
 var Post = React.createClass({
   getInitialState: function() {
     return {
-      showImage: false
+      showImage: false,
+      nowShowing: 'all'
     };
   },
 
@@ -130,7 +140,8 @@ var Posts = React.createClass({
       },
       nowShowing: 'all',
       posts: [],
-      postsFiltered: []
+      postsFiltered: [],
+      toBeAdded: []
     };
   },
 
@@ -151,21 +162,21 @@ var Posts = React.createClass({
 	  				image: "",
 	  				time: ""
 		  			};
-	  			post.source = result.items[i].service_name;
+	  			post.source = result.items[i].service_name.toLowerCase();
 	  			post.time = result.items[i].item_published;
-	  			if(post.source == "Manual"){
+	  			if(post.source == "manual"){
 	  				post.user = "Manual";
 	  				post.avatar = "http://placehold.it/150x150";
 	  				post.text = result.items[i].item_data.text;
 	  				post.image = result.items[i].item_data.image_url;
 	  			}
-	  			if(post.source == "Twitter") {
+	  			if(post.source == "twitter") {
 	  				post.user = "@" + result.items[i].item_data.user.username;
 	  				post.avatar = result.items[i].item_data.user.avatar;
 	  				post.text = result.items[i].item_data.tweet;
 	  				post.image = "http://placehold.it/350x150?text=:(";
 	  			}
-	  			if(post.source == "Instagram") {
+	  			if(post.source == "instagram") {
 	  				post.user = "@" + result.items[i].item_data.user.username;
 	  				post.avatar = result.items[i].item_data.user.avatar;
 	  				post.text = result.items[i].item_data.caption;
@@ -197,17 +208,31 @@ var Posts = React.createClass({
   },
 
   clickDoFilter: function(filterName){
-  	this.setState({
-  		nowShowing: filterName
-  	});
-  	console.log(this.state.nowShowing);
+	this.state.nowShowing = filterName;
+  	var postsFiltered = [];
+  	var toBeFiltered = this.state.posts.concat(this.state.toBeAdded)
+	for(var i = 0; i < toBeFiltered.length; i++){
+    	if (toBeFiltered[i].source == this.state.nowShowing || this.state.nowShowing == 'all'){
+    		postsFiltered.push(toBeFiltered[i]);
+    	}
+    }
+    this.setState({
+    	postsFiltered: postsFiltered,
+    	toBeAdded: []
+    })
   },
 
   render: function() {
     var self = this;
 
-	var posts = this.state.posts.map(function(post) {
-  		return <Post user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
+    if(self.state.nowShowing == 'all'){
+    	self.state.postsFiltered = self.state.posts;
+    }
+
+    console.log(self.state.postsFiltered);
+	
+	var posts = self.state.postsFiltered.map(function(post) {
+  		return <Post source={post.source} user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
 	});
 
 	if(!posts.length){
@@ -217,7 +242,7 @@ var Posts = React.createClass({
     return (
     	<div>
 	    	<div className="header">
-				<Header siteName={"SociaL • ite"} />
+				<Header siteName={"SOCIAL • ite"} />
 			</div>
 	    	<div className="wrapper">
 	    		<ul className="filter">
@@ -229,6 +254,9 @@ var Posts = React.createClass({
 			  	<div className="masonry">
 			    	{posts}
 			    </div>
+			    <ul className="options">
+			    	<Options localHandleClick={this.clickAddMore} />
+			    </ul>
 		    </div>
 	    </div>
     );

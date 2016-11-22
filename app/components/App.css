@@ -1,13 +1,14 @@
-.loading {
-  width: 50%;
-  padding: 2.5em;
-  margin: 0 auto;
-  text-align: center;
+a,
+a:hover,
+a:visited,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: inherit;
 }
 
-
 .header {
-    background: #fff;
+    background: #00bcd4;
     margin: 0 auto;
     padding: 1.5em;
     position: fixed;
@@ -19,7 +20,8 @@
 }
 
 .title {
-    color: #232830;
+    display: block;
+    color: #fff;
     font-weight: lighter;
 }
 
@@ -30,7 +32,8 @@
     box-sizing: border-box;
 }
 
-.filter {
+.filter,
+.options {
     overflow: hidden;
     display: -webkit-flex;
     display: flex;
@@ -41,17 +44,18 @@
     -webkit-justify-content: center;
     justify-content: center;
     -ms-flex-pack: center;
+    align-items: center;
     list-style-type: none;
     width: 100%;
     margin: 0 0 25px 0;
     padding: 0;
 }
 
-.filter > li {
+.filter > li,
+.options > li {
     color: white;
-    text-transform: capitalize;
-    padding: 10px;
     cursor: pointer;
+    text-transform: capitalize;
     font-size: 14px;
     font-weight: lighter;
     white-space: nowrap;
@@ -62,10 +66,14 @@
     text-align: left;
     list-style-type: none;
     margin: 0;
+    padding: 10px;
     width: 190px;
-    display: inline-block;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.options > li {
+    text-align: center;
 }
 
 .manual {
@@ -82,6 +90,10 @@
 
 .all {
     background: #232830;
+}
+
+.load {
+    background: #4caf50;
 }
 
 .masonry {
@@ -106,6 +118,11 @@
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     border-radius: 2px;
     overflow: hidden;
+}
+
+.item > .loading {
+    text-align: center;
+    padding: 5em;
 }
 
 .item > .content > p {
@@ -139,6 +156,7 @@
     border-radius: 50%;
     background-position: center center;
     background-size: cover;
+    background-image: url(http://placehold.it/150x150); 
 }
 
 .item > .content > .post-footer > .post-info {
