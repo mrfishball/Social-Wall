@@ -1,14 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 // import spinner from './spin.svg';
 require('./App.css');
+
+var Header = React.createClass({
+	render: function() {
+		return (
+			<h3 className="title">{this.props.siteName}</h3>
+		)
+	}
+});
+
+var Filters = React.createClass({
+	localHandleClick: function() {
+		this.props.localHandleClick(this.props.filterName);
+	},
+
+	render: function() {
+		return (
+			<li onClick={this.localHandleClick} className={this.props.filterName}>{this.props.filterName}</li>
+		);
+	}
+});
 
 // Post list item image
 var PostImage = React.createClass({
   getDefaultProps: function() {
-  	var load = 'Loading...'
     return {
-      loader: load,
+      loader: 'Loading...',
       showImage: false
     };
   },
@@ -25,10 +45,16 @@ var PostImage = React.createClass({
   },
 
   render: function() {
-    var img = (this.props.showImage) ? this.props.src : this.props.loader;
-    return (
-      <img src={img} alt={this.props.alt} />
-    );
+    if(this.props.showImage) {
+    	return (
+	      <img src={this.props.src} alt={this.props.alt} />
+	    );
+    }else {
+    	return (
+	      <div className="loading">{this.props.loader}</div>
+	    );
+    }
+    
   }
 });
 
@@ -102,89 +128,54 @@ var Posts = React.createClass({
         top: 0,
         height: 0
       },
-      posts: [
-      	{
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 hours ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "7 minutes ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "1 hours ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "5 hours ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 days ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 days ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 days ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 days ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 days ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 days ago"
-	    },
-	    {
-	      	user: "SamanthaFaiers",
-	      	text: "RT @Bullring: Exciting news, @SamanthaFaiers &amp; @BillieFaiers will be hosting Autumn Fashion Fix on 27 Sept &gt;  http:\/\/t.co\/tIaOjp0LpL #aff",
-	      	avatar: "http://placehold.it/150x150",
-	      	image: "http://placehold.it/600x350",
-	      	time: "3 days ago"
-	    }
-      ]
+      nowShowing: 'all',
+      posts: [],
+      postsFiltered: []
     };
   },
 
   componentDidMount: function() {
+  	var self = this;
+  	var postProcessed = [];
+  	var url = "https://dl.dropboxusercontent.com/u/11354808/posts.json";
+  	$.getJSON(url, function(result) {
+  		if(!result || !result.items || !result.items.length){
+  			return;
+  		}
+  			for(var i = 0; i < result.items.length; i++) {
+  				var post = {
+	  				source: "",
+	  				user: "",
+	  				avatar: "",
+	  				text: "",
+	  				image: "",
+	  				time: ""
+		  			};
+	  			post.source = result.items[i].service_name;
+	  			post.time = result.items[i].item_published;
+	  			if(post.source == "Manual"){
+	  				post.user = "Manual";
+	  				post.avatar = "http://placehold.it/150x150";
+	  				post.text = result.items[i].item_data.text;
+	  				post.image = result.items[i].item_data.image_url;
+	  			}
+	  			if(post.source == "Twitter") {
+	  				post.user = "@" + result.items[i].item_data.user.username;
+	  				post.avatar = result.items[i].item_data.user.avatar;
+	  				post.text = result.items[i].item_data.tweet;
+	  				post.image = "http://placehold.it/350x150?text=:(";
+	  			}
+	  			if(post.source == "Instagram") {
+	  				post.user = "@" + result.items[i].item_data.user.username;
+	  				post.avatar = result.items[i].item_data.user.avatar;
+	  				post.text = result.items[i].item_data.caption;
+	  				post.image = result.items[i].item_data.image.large;
+	  			}
+	  			postProcessed.push(post);
+  			}
+  		self.setState({posts: postProcessed});
+  	});
+
     window.addEventListener('scroll', this.updateViewport, false);
     window.addEventListener('resize', this.updateViewport, false);
     self.updateViewport();
@@ -205,21 +196,39 @@ var Posts = React.createClass({
     });
   },
 
+  clickDoFilter: function(filterName){
+  	this.setState({
+  		nowShowing: filterName
+  	});
+  	console.log(this.state.nowShowing);
+  },
+
   render: function() {
     var self = this;
 
-    var posts = this.state.posts.map(function(post) {
-      return <Post user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
-    });
+	var posts = this.state.posts.map(function(post) {
+  		return <Post user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
+	});
 
-    if(!posts.length){
-    	posts = <p className='loading'>Loading...</p>;
-    }
+	if(!posts.length){
+		posts = <div className='loading'>Loading...</div>;
+	}
 
     return (
-    	<div className="wrapper">
-		  	<div className="masonry">
-		    	{posts}
+    	<div>
+	    	<div className="header">
+				<Header siteName={"SociaL • ite"} />
+			</div>
+	    	<div className="wrapper">
+	    		<ul className="filter">
+	    			<Filters localHandleClick={this.clickDoFilter} filterName={"manual"} />
+	    			<Filters localHandleClick={this.clickDoFilter} filterName={"twitter"} />
+	    			<Filters localHandleClick={this.clickDoFilter} filterName={"instagram"} />
+	    			<Filters localHandleClick={this.clickDoFilter} filterName={"all"} />
+	    		</ul>
+			  	<div className="masonry">
+			    	{posts}
+			    </div>
 		    </div>
 	    </div>
     );

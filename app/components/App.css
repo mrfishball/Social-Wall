@@ -1,6 +1,33 @@
+.loading {
+  width: 50%;
+  padding: 2.5em;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.header {
+    background: #fff;
+    margin: 0 auto;
+    padding: 1.5em;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.title {
+    color: #232830;
+    font-weight: lighter;
+}
+
 .wrapper {
     width: 95%;
-    margin: 3em auto;
+    margin: 7em auto;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .filter {
@@ -22,10 +49,11 @@
 
 .filter > li {
     color: white;
+    text-transform: capitalize;
     padding: 10px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: lighter;
     white-space: nowrap;
     word-break: break-all;
     overflow: hidden;
