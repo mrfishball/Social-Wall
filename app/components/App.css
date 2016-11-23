@@ -156,11 +156,12 @@ a:active {
     border-radius: 50%;
     background-position: center center;
     background-size: cover;
-    background-image: url(http://placehold.it/150x150); 
+    background-image: url(http://placehold.it/150x150);
 }
 
 .item > .content > .post-footer > .post-info {
     margin: 0 1em;
+    width: 55%;
 }
 
 .item > .content > .post-footer > .post-info > a,

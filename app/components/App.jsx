@@ -123,6 +123,7 @@ var Post = React.createClass({
             		<a className="username" href="">{this.props.user}</a>
             		<p className="timestamp">{this.props.timestamp}</p>
             	</div>
+					<small>{this.props.symbol}</small>
             </div>
           </div>
         </div>
@@ -160,7 +161,8 @@ var Posts = React.createClass({
 	  				avatar: "",
 	  				text: "",
 	  				image: "",
-	  				time: ""
+	  				time: "",
+	  				symbol: ""
 		  			};
 	  			post.source = result.items[i].service_name.toLowerCase();
 	  			post.time = self.prettyDate(result.items[i].item_published);
@@ -169,18 +171,21 @@ var Posts = React.createClass({
 	  				post.avatar = "http://placehold.it/150x150";
 	  				post.text = result.items[i].item_data.text;
 	  				post.image = result.items[i].item_data.image_url;
+	  				post.symbol = "Manual";
 	  			}
 	  			if(post.source == "twitter") {
 	  				post.user = "@" + result.items[i].item_data.user.username;
 	  				post.avatar = result.items[i].item_data.user.avatar;
 	  				post.text = result.items[i].item_data.tweet;
-	  				post.image = "http://placehold.it/350x150?text=no+image+:/";
+	  				post.image = "http://placehold.it/550x200?text=no+image+:/";
+	  				post.symbol = "Twitter";
 	  			}
 	  			if(post.source == "instagram") {
 	  				post.user = "@" + result.items[i].item_data.user.username;
 	  				post.avatar = result.items[i].item_data.user.avatar;
 	  				post.text = result.items[i].item_data.caption;
 	  				post.image = result.items[i].item_data.image.large;
+	  				post.symbol = "Instagm";
 	  			}
 	  			postProcessed.push(post);
   			}
@@ -270,7 +275,7 @@ var Posts = React.createClass({
     	self.state.postsFiltered = self.state.posts;
     }
 	var posts = self.state.postsFiltered.map(function(post) {
-  		return <Post source={post.source} user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
+  		return <Post source={post.source} symbol={post.symbol} user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
 	});
 
 	if(!posts.length){
