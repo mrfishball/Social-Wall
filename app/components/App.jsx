@@ -163,7 +163,7 @@ var Posts = React.createClass({
 	  				time: ""
 		  			};
 	  			post.source = result.items[i].service_name.toLowerCase();
-	  			post.time = result.items[i].item_published;
+	  			post.time = self.prettyDate(result.items[i].item_published);
 	  			if(post.source == "manual"){
 	  				post.user = "Manual";
 	  				post.avatar = "http://placehold.it/150x150";
@@ -174,7 +174,7 @@ var Posts = React.createClass({
 	  				post.user = "@" + result.items[i].item_data.user.username;
 	  				post.avatar = result.items[i].item_data.user.avatar;
 	  				post.text = result.items[i].item_data.tweet;
-	  				post.image = "http://placehold.it/350x150?text=:(";
+	  				post.image = "http://placehold.it/350x150?text=no+image+:/";
 	  			}
 	  			if(post.source == "instagram") {
 	  				post.user = "@" + result.items[i].item_data.user.username;
@@ -198,6 +198,39 @@ var Posts = React.createClass({
   componentWillUnmount: function() {
     window.removeEventListener('scroll', this.updateViewport);
     window.removeEventListener('resize', this.updateViewport);
+  },
+
+  prettyDate: function(timestamp) {
+
+  	var current = new Date();
+  	var previous = new Date(timestamp.replace(/[" "]/g, "T"));
+
+  	var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+    
+    var elapsed = current - previous;
+    
+    if (elapsed < msPerMinute) {
+         return Math.round(elapsed/1000) + ' seconds ago';   
+    }
+    else if (elapsed < msPerHour) {
+         return Math.round(elapsed/msPerMinute) + ' minutes ago';   
+    }
+    else if (elapsed < msPerDay ) {
+         return Math.round(elapsed/msPerHour ) + ' hours ago';   
+    }
+    else if (elapsed < msPerMonth) {
+         return '' + Math.round(elapsed/msPerDay) + ' days ago';   
+    }
+    else if (elapsed < msPerYear) {
+         return '' + Math.round(elapsed/msPerMonth) + ' months ago';   
+    }
+    else {
+         return '' + Math.round(elapsed/msPerYear ) + ' years ago';   
+    }
   },
 
   updateViewport: function() {
@@ -233,8 +266,6 @@ var Posts = React.createClass({
 
   render: function() {
     var self = this;
-    console.log(this.state.postsFiltered.length);
-    // console.log(this.state.posts);
     if(self.state.nowShowing == 'all'){
     	self.state.postsFiltered = self.state.posts;
     }
