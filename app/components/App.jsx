@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import FontAwesome from 'react-fontawesome';
 require('./App.css');
 
 var Header = React.createClass({
@@ -12,12 +13,12 @@ var Header = React.createClass({
 });
 
 var Options = React.createClass({
-	localHandleClick: function() {
-		this.props.localHandleClick();
-	},
+	// localHandleClick: function() {
+	// 	this.props.localHandleClick();
+	// },
 	render: function() {
 		return (
-			<li onClick={this.localHandleClick} className="load">See More</li>
+			<li onClick={this.props.localHandleClick} className="load">See More</li>
 		);
 	}
 });
@@ -71,8 +72,7 @@ var PostImage = React.createClass({
 var Post = React.createClass({
   getInitialState: function() {
     return {
-      showImage: false,
-      nowShowing: 'all'
+      showImage: false
     };
   },
 
@@ -184,7 +184,10 @@ var Posts = React.createClass({
 	  			}
 	  			postProcessed.push(post);
   			}
-  		self.setState({posts: postProcessed});
+  		self.setState({
+  			posts: postProcessed,
+  			toBeAdded: postProcessed
+  		});
   	});
 
     window.addEventListener('scroll', this.updateViewport, false);
@@ -198,7 +201,6 @@ var Posts = React.createClass({
   },
 
   updateViewport: function() {
-    // TODO: debounce this call
     this.setState({
       viewport: {
         top: window.pageYOffset,
@@ -208,29 +210,34 @@ var Posts = React.createClass({
   },
 
   clickDoFilter: function(filterName){
-	this.state.nowShowing = filterName;
+  	var self = this;
   	var postsFiltered = [];
-  	var toBeFiltered = this.state.posts.concat(this.state.toBeAdded)
+  	var toBeFiltered = self.state.posts;
 	for(var i = 0; i < toBeFiltered.length; i++){
-    	if (toBeFiltered[i].source == this.state.nowShowing || this.state.nowShowing == 'all'){
+    	if (toBeFiltered[i].source == filterName || filterName == 'all'){
     		postsFiltered.push(toBeFiltered[i]);
     	}
     }
-    this.setState({
+    self.setState({
     	postsFiltered: postsFiltered,
-    	toBeAdded: []
+    	nowShowing: filterName
     })
+  },
+
+  clickAddMore: function() {
+  	var self = this;
+  	var totalPosts = self.state.posts.concat(self.state.toBeAdded);
+  	self.state.posts = totalPosts;
+  	self.clickDoFilter(this.state.nowShowing);
   },
 
   render: function() {
     var self = this;
-
+    console.log(this.state.postsFiltered.length);
+    // console.log(this.state.posts);
     if(self.state.nowShowing == 'all'){
     	self.state.postsFiltered = self.state.posts;
     }
-
-    console.log(self.state.postsFiltered);
-	
 	var posts = self.state.postsFiltered.map(function(post) {
   		return <Post source={post.source} user={post.user} avatar={post.avatar} text={post.text} timestamp={post.time} image={post.image} viewport={self.state.viewport} />
 	});

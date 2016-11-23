@@ -17,7 +17,8 @@
     "babel-runtime": "6.x",
     "jquery": "^3.1.1",
     "react": "15.x",
-    "react-dom": "15.x"
+    "react-dom": "15.x",
+    "react-fontawesome": "^1.4.0"
   },
   "devDependencies": {
     "babel-core": "6.x",
@@ -36,6 +37,7 @@
     "eslint-plugin-react": "latest",
     "jquery": "^3.1.1",
     "open-browser-webpack-plugin": "0.0.2",
+    "react-fontawesome": "^1.4.0",
     "style-loader": "~0.13.0",
     "webpack": "latest",
     "webpack-dev-server": "latest"
