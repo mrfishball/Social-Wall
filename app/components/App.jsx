@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 require('./App.css');
 
+// Render the header element with the site title
 var Header = React.createClass({
 	render: function() {
 		return (
@@ -11,10 +12,8 @@ var Header = React.createClass({
 	}
 });
 
+// Render the See More button at the bottom of the page
 var Options = React.createClass({
-	// localHandleClick: function() {
-	// 	this.props.localHandleClick();
-	// },
 	render: function() {
 		return (
 			<li onClick={this.props.localHandleClick} className="load">See More</li>
@@ -22,6 +21,7 @@ var Options = React.createClass({
 	}
 });
 
+// Render a set of filters to filter out posts or display all posts
 var Filters = React.createClass({
 	localHandleClick: function() {
 		this.props.localHandleClick(this.props.filterName);
@@ -54,6 +54,7 @@ var PostImage = React.createClass({
     this.props.updateImagePosition(el.offsetTop, el.offsetHeight);
   },
 
+  // Grab the image properties and return a DOM element or if not loaded, display a loading message
   render: function() {
     if(this.props.showImage) {
     	return (
@@ -130,7 +131,7 @@ var Post = React.createClass({
   }
 });
 
-// Renders all the posts
+// Renders all the posts in the wall
 var Posts = React.createClass({
   getInitialState: function() {
     return {
@@ -149,6 +150,7 @@ var Posts = React.createClass({
   	var self = this;
   	var postProcessed = [];
   	var url = "https://dl.dropboxusercontent.com/u/11354808/posts.json";
+    // Grab data from a JSON request and parse the data into the post object which will then be saved to the state
   	$.getJSON(url, function(result) {
   		if(!result || !result.items || !result.items.length){
   			return;
@@ -204,6 +206,7 @@ var Posts = React.createClass({
     window.removeEventListener('resize', this.updateViewport);
   },
 
+  // Prettify timestamps. ThinK(2 seconds ago, 2 days ago. etc)
   prettyDate: function(timestamp) {
 
   	var current = new Date();
@@ -246,6 +249,7 @@ var Posts = React.createClass({
     });
   },
 
+  // Filter to show that posts specified.
   clickDoFilter: function(filterName){
   	var self = this;
   	var postsFiltered = [];
@@ -260,7 +264,7 @@ var Posts = React.createClass({
     	nowShowing: filterName
     })
   },
-
+  // Load more posts in it's current filter/show option.
   clickAddMore: function() {
   	var self = this;
   	var totalPosts = self.state.posts.concat(self.state.toBeAdded);
